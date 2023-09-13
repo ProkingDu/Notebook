@@ -29,6 +29,7 @@ flex布局下最重要的概念是轴线和起终线（起始线和终点线）�
 flex-direction译为“弯曲方向”实际上也就是元素排列的方向。
 
 #### row
+
 当flex-firection被设定为row时，表示主轴线是水平排序的，这时候轴线呈现行的样式。（轴线是不可见的，只是一个布局的概念。）
 
 当轴线呈现水平方向时，请记住flex布局下的元素是顺着主轴的方向排序的。所以此时弹性盒子的子元素呈现水平排列的`inline`样式。
@@ -39,9 +40,10 @@ flex-direction译为“弯曲方向”实际上也就是元素排列的方向。
 
 reverse表示反转，颠倒。
 
-row-reverse即反转的主轴线，会置换主轴的起点和终点。默认的主轴线是从左到右延伸的，但是当reverse之后，主轴线从右往左延伸，相当于元素会**以垂直中线进行反转**。简单的理解，就是元素从右往左倒过来排序。
+row-reverse即反转的主轴线，会置换主轴的起点和终点。默认的主轴线是从左到右延伸的，但是当reverse之后，主轴线从右往左延伸，相当于元素会**以垂直中线进行反转**。简单理解，就是元素在水平方向上从右往左排序。
 
 #### row与row-reverse
+
 无论是row还是row-reverse，二者都表示主轴线沿着inline方向延展。此时布局内元素水平排列，相当于display:inline-block（但不等同于此，因为元素不会被限制在inline-block）
 
 简单的例子:
@@ -69,19 +71,33 @@ C
     /* 表示使用flex布局 */
     flex-direction:row;
     }
+    .box{
+    width:100px;
+    height:100px;
+    margin:5px
+    }
 </style>
 ```
 
 
 
-<div id="content" style="display:flex;">
-<div class="box" style="background-color:red">
-A
-</div>
-<div class="box" style="background-color:blue">
- B
-</div>
-<div class="box" style="background-color:green">
-C
-</div>
-</div>
+最终样式：
+
+![image-20230913124914140](C:\Users\28110\AppData\Roaming\Typora\typora-user-images\image-20230913124914140.png)
+
+
+
+如果将上方的其他代码不动，而更改`row` 为`row-reverse`则：
+
+![1](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694581006-image.png)
+
+此时主轴线翻转起点和终点，起点在最右端，终点在最左端，元素从起点开始排序，也就是从右往左排序。
+
+
+
+#### column
+
+
+
+
+
