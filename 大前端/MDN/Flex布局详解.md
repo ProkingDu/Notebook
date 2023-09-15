@@ -185,4 +185,139 @@ Flex将不在会对书写模式提供假设，以前的CSS认为，书写模式�
 
 而在交叉轴，因为这两种语言都是水平书写模式，所以交叉轴的起始线 在顶部，终点线在底部。
 
+**整个Flex布局轴模型示意：**
+```
+.demo{
+        margin-top: 50px;
+        margin-left: 100px;;
+        width: 500px;
+        display: flex;
+        flex-direction: row;
+        /* border:1px solid #666; */
+        padding: 30px;
+        position: relative;
+    }
+    .demo .box{
+        margin: 5px;
+    }
+    .main-row{
+        width: 100%;
+        position: absolute;
+        height: 1px;
+        border-top:1px dotted red;
+        top:3px;
+        left: 0px;
+        color:red;
+        font-size:12px
+    }
+    .jc-row{
+        width: 1px;
+        border-left:1px dotted #0602fc;
+        position: absolute;
+        top:0px;
+        left: 0px;
+        height: 70%;
+        padding-top:20px;
+        color:blue;
+        font-size:10px;
+        }
+        .main-start{
+            width: 10px;
+            padding: 2px;;
+            height: 70%;
+            border-right: 2px solid green;
+            font-size: 10px;
+            color: green;
+            position: absolute;
+            top:0px;
+            left: -15px;
+            text-align: left;
+        }
+        .main-end{
+            width: 10px;
+            padding: 2px;;
+            height: 90%;
+            border-left: 1px solid rgb(255, 9, 169);
+            font-size: 10px;
+            color: rgb(255, 0, 157);
+            position: absolute;
+            top:0px;
+            right: 0;
+            text-align: left;
+        }
+        .jc-start{
+            width: 100%;
+            padding: 2px;;
+            height: 10px;
+            border-bottom: 2px solid rgb(7, 189, 255);
+            font-size: 10px;
+            color: rgb(0, 208, 255);
+            position: absolute;
+            top:-15px;
+            left: 0px;
+            text-align: left;
+        }
+        .jc-end{
+            width: 100%;
+            padding: 2px;;
+            height: 10px;
+            border-top: 2px solid rgb(255, 201, 7);
+            font-size: 10px;
+            color: rgb(255, 166, 0);
+            position: absolute;
+            bottom:0px;
+            left: 0px;
+            text-align: left;
+        }
+```
+```
+ <div class="demo">
+        <div class="box" style="background-color: #666;">
+            One
+        </div>
+        <div class="box" style="background-color: #999;">
+            two
+        </div>
+        <div class="box" style="background-color: #999;">
+            Three
+        </div>
+        <div class="main-row">
+            主轴线
+        </div>
+        <div class="jc-row">
+            交叉轴
+        </div>
+        <div class="main-start">
+            主轴线起始线
+        </div>
+        <div class="main-end">
+            主轴线终点线
+        </div>
+        <div class="jc-start">
+            交叉轴起始线
+        </div>
+        <div class="jc-end">
+            交叉轴终点线
+        </div>
+    </div>
+```
+
+结果：
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694772807-image-1024x278.png)
+
+这是当flex-direction为row时的参考模型，当flex-direction为row-reverse时，主轴线交换起终点：
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694772934-image-1024x278.png)
+
+当flex-direction为column时，主轴线和交叉轴置换:
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694773151-image-1024x451.png)
+
+当column-reverse时，仍然是主轴线起始线和终点线置换，但此时主轴线是从上至下展开：
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694773372-image-1024x409.png)
+
+由此可以对上述内容进行最终总结：
+* 在flex布局中，元素顺着主轴线展开，且延展方向为从主轴线的起始线到终点线。
+* reverse不会影响主轴线和交叉轴，会置换主轴线的起终点。
+* 更改row或column置换主轴线和交叉轴，但不会影响起终点。
+* 起始线和终点线就是为了确定元素的排列方向，而不是通俗的从右到左或从左到右。
+
 ### 四、Flex容器
