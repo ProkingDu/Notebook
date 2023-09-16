@@ -364,10 +364,38 @@ $\color{#ff0000}{Notice:flex-wrap应用于flex容器}$
 
 ![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694779589-image-1024x341.png)
 
-1. 当felx为wrap：
+1. 当felx-wrap为wrap：
 
 ![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694779667-image-1024x371.png)
 
-1. 当flex为wrap-reverse:
+1. 当flex-wrap为wrap-reverse:
 
 ![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694779744-image-1024x358.png)
+
+## 五、Flex的简写属性
+
+可以将flex-direction与flex-wrap简写为flex-flow，其中指定第一个值为flex-direction，第二个字为flex-wrap。
+
+例如：指定Flex容器主轴为row，且不允许换行：
+```
+flex-flow:row nowrap;
+```
+
+## 六、Flex元素上的属性
+
+在介绍Flex元素属性之前，需要先了解关于Flex容器可用空间的概念。
+
+顾名思义，可用空间就是除去元素已经占据的空间之外，在容器中剩余的空间，实际上也是一种盒子模型。
+
+例如如下Flex容器，容器宽度为1000px,其中每个元素的默认宽度的为22px，第一个元指定了`width:200px`,所以该容器内可用空间为1000-200-22*4=712px。
+
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694871111-image-1024x62.png)
+
+**如果没有给元素设定尺寸，flex-basis 的值采用元素内容的尺寸。这就解释了：我们给只要给 Flex 元素的父元素声明 display: flex ，所有子元素就会排成一行，且自动分配小大以充分展示元素的内容。**
+
+
+常用的Flex元素属性有以下三个：
+
+* flex-basis 即元素所占据的初始空间，类似width，但是比width优先级要高。
+* flex-grow flex会以basis为基础，向主轴终止线方向延伸占据剩余可用空间。
+* flex-shrink 与flex-grow相反，指定元素收缩。
