@@ -368,6 +368,6 @@ $\color{#ff0000}{Notice:flex-wrap应用于flex容器}$
 
 ![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694779667-image-1024x371.png)
 
-1. 当flex为wrap-reverse:]
+1. 当flex为wrap-reverse:
 
 ![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694779744-image-1024x358.png)
