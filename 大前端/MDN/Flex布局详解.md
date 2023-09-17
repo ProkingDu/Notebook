@@ -399,3 +399,103 @@ flex-flow:row nowrap;
 * flex-basis 即元素所占据的初始空间，类似width，但是比width优先级要高。
 * flex-grow flex会以basis为基础，向主轴终止线方向延伸占据剩余可用空间。
 * flex-shrink 与flex-grow相反，指定元素收缩。
+
+### 1. flex-basis
+MDN:
+
+**CSS 属性 flex-basis 指定了 flex 元素在主轴方向上的初始大小。如果不使用 box-sizing 改变盒模型的话，那么这个属性就决定了 flex 元素的内容盒（content-box）的尺寸。**
+
+>box-size:决定浏览器如何计算元素的内容宽高。
+> * content-box 默认值。如果设定一个元素的宽高为100px，则这个宽高是针对于元素内容区域的宽高，如果为元素额外设定边框和内边距，都会在最后被计算为元素的总宽高。
+> * box-border 与content-box相反，当设定元素宽高时会被表现为元素的内容区域+填充和边框，即实际的元素内容区域=元素总大小-边框-填充。
+> * $\color{#ff0000}{元素的外边距（Margin不会被计算）}$
+
+flex-basis的属性值可以是指定的像素值（px），也可以是相对于其父元素的百分比。他的默认属性值是auto，即根据元素排列自动调整。
+
+示例：一个简单的两列列表
+```css
+.ul{
+            width:60%;
+            margin-left:20%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .list{
+            flex-basis: 50%;
+            white-space: nowrap;
+            overflow: clip;
+            text-overflow: ellipsis;
+            padding: 5px;
+            box-sizing: border-box;
+        /*    由于加上填充会使元素换行，所以给定元素box-sizing:border-box*/
+        }
+```
+```html
+<ul class="ul">
+        <li class="list">我吃早饭了</li>
+        <li class="list">我吃午饭了</li>
+        <li class="list">我去学习了</li>
+        <li class="list">我去打球了</li>
+        <li class="list">我吃晚饭了</li>
+        <li class="list">我吃晚饭之后去操场溜达了一圈，然后跑了两圈摔了三跤</li>
+    </ul>
+```
+结果：
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694942387-image-1024x191.png)
+
+如果指定flex-basis的值加起来大于容器宽度，且容器felx-wrap为nowrap，则子元素会被压缩而不会撑开父元素：
+
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694942387-image-1024x191.png)
+
+### 2.flex-grow
+
+flex-grow指定元素的占据空间的增长系数， 根据元素的flex-basis为基础，沿着主轴线的方向进行延展。如果有其他元素也被允许延展，那么他们会各自占据可用空间的一部分。
+
+如下示例，给五个子元素设置flex-basis为50px。且box-sizing为border-box，为A和B的flex-grow分别设定为1和2：
+````css
+ .container{
+            width:600px;
+            padding:5px;
+            display: flex;
+            flex-wrap: nowrap;
+            border:1px solid #666;
+        }
+        .box{
+            padding: 10px;
+            background: #91e7e7;
+            /*margin: 5px;*/
+            border-radius: 3px;
+            flex-basis:50px;
+            box-sizing: border-box;
+        }
+````
+```html
+<div class="container">
+    <div class="box" style="flex-grow: 1">A</div>
+    <div class="box" style="flex-grow: 2">B</div>
+    <div class="box">C</div>
+    <div class="box">D</div>
+    <div class="box">E</div>
+</div>
+```
+
+结果：
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1694955409-image.png)
+
+由于容器的总宽度为600px，默认的Flex-basis为50px，则除去CDE剩余的空间为450px，A、B的flex-grow分别为1、2，即将剩下的450px分为三等分，A占据三分之一，B占据三分之二，所以的到A的宽度约为150px，B的宽度约为300px。
+
+### 3. grow-shrink
+flex-grow属性是处理 flex 元素在主轴上增加空间的问题，相反flex-shrink属性是处理 flex 元素收缩的问题。如果我们的容器中没有足够排列 flex 元素的空间，那么可以把 flex 元素flex-shrink属性设置为正整数来缩小它所占空间到flex-basis以下。与flex-grow属性一样，可以赋予不同的值来控制 flex 元素收缩的程度 —— 给flex-shrink属性赋予更大的数值可以比赋予小数值的同级元素收缩程度更大。
+
+### 4.flex属性的简写
+
+实际上对于上述三种属性很少会同时使用，而是使用简写属性flex来同时定义flex-grow、flex-shrink、flex-basis。
+```css
+flex:flex-grow flex-shrink flex-basis;
+```
+
+### 5.flex属性的预定值
+flex属性具有如下自定义形式：
+* flex:initial 将元素重置为flexbox的初始值，相当与flex:0 1 auto，由于flex-grow为0，所以元素不会超过felx-basis，flex-shrink为1，元素可以被缩小来防止溢出，而flex-basis为aut，相当于content-box。
+* flex-auto 等同于flex:1 1 auto，与flex-initial基本相同，但是指定了flex-grow为1，所以元素既可以拉伸也可以收缩。
+* flex:none 相当于flex:0 0 auto，元素不可伸缩，但是会按照flex-basis:auto进行布局。

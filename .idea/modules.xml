@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Notebook.iml" filepath="$PROJECT_DIR$/.idea/Notebook.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../学习的代码/大前端/.idea/大前端.iml" filepath="$PROJECT_DIR$/../学习的代码/大前端/.idea/大前端.iml" />
     </modules>
   </component>
 </project>
