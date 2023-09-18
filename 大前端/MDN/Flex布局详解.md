@@ -499,3 +499,190 @@ flex属性具有如下自定义形式：
 * flex:initial 将元素重置为flexbox的初始值，相当与flex:0 1 auto，由于flex-grow为0，所以元素不会超过felx-basis，flex-shrink为1，元素可以被缩小来防止溢出，而flex-basis为aut，相当于content-box。
 * flex-auto 等同于flex:1 1 auto，与flex-initial基本相同，但是指定了flex-grow为1，所以元素既可以拉伸也可以收缩。
 * flex:none 相当于flex:0 0 auto，元素不可伸缩，但是会按照flex-basis:auto进行布局。
+
+## 七、元素的对齐和空间分配
+
+### 1.align-items
+
+`align-items`使元素在交叉轴方向对齐。实际上，他可以用于flexbox和Grid Layout两种布局。这里只指出其在Flexbox的属性值。
+
+在Flex布局中，align-items默认值是stretch，使元素的高度填充容器的高度，这也就是为什么默认情况下，Flex元素会被拉伸到填满容器，严格来说，应该是容器被元素撑开并拉伸子元素。
+
+看一个简单的例子：
+css:
+```
+.box{
+    display: flex;
+    }
+    .box *{
+    background: red;
+    margin:5px;
+    padding:10px
+    }
+```
+
+html:
+
+```
+ <div class="box">
+    <div class="item">A</div>
+    <div class="item" style="height:200px;">B</div>
+    </div>
+```
+
+[![pP4tRjx.jpg](https://z1.ax1x.com/2023/09/18/pP4tRjx.jpg)](https://imgse.com/i/pP4tRjx)
+
+实际上A所在的盒子并没有被设定高度，但是他被拉伸到了和父元素一样的200px，而父元素的高度，又来自于其最高子元素的高度，所以说stretch是子元素将父元素撑开并拉伸子元素。
+
+**align-items有如下适用于flex的属性：**
+
+|属性值|说明|
+|:----:|:------|
+|stretch|默认值。当容器flex-direction:row时，使最高的子元素撑开容器并且拉伸其他子元素至相同高度。当column时，除非你指定宽度，否则他的宽度会拉满，高度默认由内容决定。|
+|flex-start|row:元素沿着交叉轴起始线展开，宽度高度默认由内容决定。|
+|flex-end|row:元素沿着交叉轴终点线展开，宽高默认都由内容决定。|
+|center|元素沿着交叉轴中线展开，如果是row相当于垂直居中，如果是column相当于水平居中，宽高默认都有内容决定。|
+
+*对于上方的默认情况，指不通过width、height、flex-basis等来指定元素大小的情况。*
+
+对所有情况做出示例：
+```
+<style>
+        .flex-box{
+            border: 1px solid #666;
+            display: flex;
+        }        
+        .demo1{
+            flex-direction: row;
+            align-items: stratch;
+        }
+        .flex-box .f{
+            margin-left:5px;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .flex-box .f:nth-child(1){
+            background-color: antiquewhite;
+        }
+        .flex-box .f:nth-child(2){
+            background-color: rgb(255, 134, 134);
+        }
+        .flex-box .f:nth-child(3){
+            background-color: rgb(138, 208, 215);
+        }
+        .flex-box .f:nth-child(4){
+            background-color: rgb(139, 222, 91);
+        }
+        .flex-box .f:nth-child(5){
+            background-color: rgb(232, 190, 65);
+        }
+        .flex-box .f:nth-child(6){
+            background-color: rgb(252, 0, 67);
+        }
+        .demo2{
+            flex-direction: column;
+        }
+        
+    </style>
+    <div class="flex-demo">
+        <h3>默认的stratch演示：</h3>
+        <div class="flex-box demo1">
+            <div class="f">No.1</div>
+            <div class="f">No.2</div>
+            <div class="f">No.3</div>
+            <div class="f">this is a long mark.;it will decide the height of container</div>
+            <div class="f">this is the last mark.</div>
+        </div>
+        <h3>当flex-direction为column时，stratch：</h3>
+        <div class="flex-box demo2">
+            <div class="f">No.1</div>
+            <div class="f">No.2</div>
+            <div class="f">No.3</div>
+            <div class="f">this is a long mark.in row direction,this will not decide the height of container,and will not influence the height of other marks.</div>
+            <div class="f">this is the last mark.</div>
+        </div>
+        <h3>当flex-direction为row时，flex-start：</h3>
+        <div class="flex-box" style="flex-direction: row;align-items: flex-start;">
+            <div class="f">No.1</div>
+            <div class="f">No.2</div>
+            <div class="f">No.3</div>
+            <div class="f">this is a long mark.in flex-start,it will not open out its father mark,and other marks will at the top of container</div>
+            <div class="f">this is the last mark.</div>
+        </div>
+        <h3>当flex-direction为column时，flex-start：</h3>
+        <div class="flex-box" style="flex-direction: column;align-items: flex-start;">
+            <div class="f">No.1</div>
+            <div class="f">No.2</div>
+            <div class="f">No.3</div>
+            <div class="f">this is a long mark.in column and flex-start,it also will not open out its father mark,in default,all the marks will full of the width of container.</div>
+            <div class="f">this is the last mark.</div>
+        </div>
+        <h3>当flex-direction为row时，flex-end：</h3>
+        <div class="flex-box" style="flex-direction: row;align-items: flex-end;">
+            <div class="f">No.1</div>
+            <div class="f">No.2</div>
+            <div class="f">No.3</div>
+            <div class="f">this long mark will not open out the container and all the marks's size will decide by their content.the best important,the will align with the end of container's crossed-axis,it same as at the bottom of container</div>
+            <div class="f">this is the last mark.</div>
+        </div>
+        <h3>当flex-direction为column时，flex-end：</h3>
+        <div class="flex-box" style="flex-direction:column;align-items: flex-end;">
+            <div class="f">No.1</div>
+            <div class="f">No.2</div>
+            <div class="f">No.3</div>
+            <div class="f">this long mark will not open out the container and all the marks's size will decide by their content.the best important,the will align with the end of container's crossed-axis,it same as at the right of container</div>
+            <div class="f">this is the last mark.</div>
+        </div>
+        <h3>当flex-direction为row时，center：</h3>
+        <div class="flex-box" style="flex-direction:row;align-items: center;">
+            <div class="f">No.1</div>
+            <div class="f">No.2</div>
+            <div class="f">No.3</div>
+            <div class="f">this max mark also can not influence other marks's size,but the max size of container is decided by it. and other marks wil in the middle of column direction.</div>
+            <div class="f">this is the last mark.</div>
+        </div>
+        <h3>当flex-direction为column时，center：</h3>
+        <div class="flex-box" style="flex-direction:column;align-items: center;">
+            <div class="f">No.1</div>
+            <div class="f">No.2</div>
+            <div class="f">No.3</div>
+            <div class="f">all the column's characters is same as row.just a difference: smaller marks will in the center of a line.</div>
+            <div class="f">this is the last mark.</div>
+        </div>
+    </div>
+```
+
+结果：
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1695043387-image-582x1024.png)
+![](http://www.xiaodu0.com/wp-content/uploads/2023/09/1695043442-image-777x1024.png)
+
+$\color{#ff0000}{实际上图片上有一处不合适，在align-itmes不为stretch时未指定容器尺寸时，最大的元素仍然撑开了容器，不过没有影响其他的元素。但是当指定了容器尺寸时，较大的子元素会溢出父元素。}$
+
+### 2.justify-content
+align-items是指定元素在容器交叉轴的对其方向，而justify-content是对应元素在主轴线的对其方向，主轴线即为flex-direction定义的方向。
+他的默认值是flex-start即元素沿着主轴线的起始线方向展开，相应的flex-end就是从主轴线的终点线展开，相当于从右到左。
+在MDN给出：
+> CSS justify-content 属性定义浏览器如何沿着弹性容器的主轴和网格容器的行向轴分配内容元素之间和周围的空间。
+
+所以实际上justify-content不应该被简单的理解为对齐，而是元素如何分布。
+
+justify-content有如下属性：
+|属性值|说明|
+|:----:|----|
+|start|指定元素与行首对齐，同时所有后续元素与前一个元素对齐,等效于flex-start|
+|end|指定元素元素与行尾对齐，同时所有前面的元素与后一个元素对齐，等效于flex-end|
+|**flex-start**|**指定元素沿着主轴线的起始线展开，仅用于flex布局，否则此元素等效于start**|
+|flex-end|**指定元素由主轴线的终止线开始排列，如果不是flex布局， 相当于end**|
+|left|伸缩元素一个挨一个在对齐容器得左边缘，如果属性的轴与内联轴不平行，则 left 的行为类似于 start。|
+|right|元素以容器右边缘为基准，一个挨着一个对齐，如果属性轴与内联轴不平行，则 right 的行为类似于 end。|
+|**space-between**|**所有flex元素顺着主轴起始线展开，且分布为第一个元素在起始线位置，最后一个元素在终止线位置，其余中间的各个元素距离相等。**|
+|**space-around**|**所有元素均匀分布，且每个元素之间的距离相等，第一个元素到起始线的距离，最后一个元素到终止线的距离是各个元素之间距离的一半。**|
+|**space-evenly**|**所有元素沿着主轴均匀分布，且第一个元素与起始线的巨鹿，最后一个元素与终止线的距离和各个元素之间的距离完全相等。**|
+|stretch|如果元素沿主轴的组合尺寸小于对齐容器的尺寸，任何尺寸设置为 auto 的元素都会等比例地增加其尺寸（而不是按比例增加），同时仍然遵守由 max-height/max-width（或相应功能）施加的约束，以便沿主轴完全填充对齐容器的组合尺寸。|
+|safe|如果元素溢出容器，则元素将按照start进行对齐。|
+|unsafe|即使元素溢出容器也按照所需的方式对对齐。|
+
+**其中标粗的部分是flex布局常用的属性值**
+
+*Notice:虽然弹性盒子支持 stretch 属性，但将其应用于弹性盒子时，由于拉伸是由 flex 属性控制的，所以 stretch 的行为与 start 相同。*
+
