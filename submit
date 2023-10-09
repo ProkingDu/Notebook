@@ -1,4 +1,5 @@
 host=`hostname`
 git add .
-git commit -m "自动提交，来自："+$host
-git push -force
+git commit -m "自动提交，来自："$host
+git push --force
+echo "提交完成"
