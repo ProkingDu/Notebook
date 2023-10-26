@@ -1,9 +1,11 @@
-
 # Javascrit异步编程
 
 ## 一、异步与同步
 
+
+
 ### 1.同步编程
+
 提到异步编程的概念首先需要理解同步编程。
 
 实际上我们编写的按照流程处理的代码大多是同步的，同步，也就是代码是按顺序逐条执行的。
@@ -14,6 +16,7 @@
 
 典型的例子是函数的执行。
 这是一个糟糕的例子：
+
 ```javascript
 function generate(){
  arr=new Array();
@@ -28,23 +31,28 @@ function generate(){
 }
      console.log("finished");
 ```
+
 当然，这时候只是定义了函数，他还没有被执行，所有在执行这段代码后，他仍然会立马打印finished。
 如果在倒数第二行加上：`generate();`
 这时候控制台似乎没有响应，实际上是生成这样一个100万个元素的数组需要太长时间了，由于代码是从上至下执行的，必须在函数执行完才会打印finished。
 另一个典型的例子是XMLHttpRequest的同步请求：
 这又是一段糟糕的代码：
+
 ```javascript
      xhr=new XMLHttpRequest();
      xhr.open("GET","http://www.xiaodu0.com",false);
      xhr.send();
      console.log(xhr.responseText);
 ```
+
 看上去没什么问题，但是如果服务器响应的时间过长，或者服务器出现问题都会导致下面的代码需要等待不可预料的时间才能执行到。
 
 所以同步编程就是代码按照顺序执行，只有上面的代码执行完毕才会执行下一段代码。
 
 ### 2. 异步编程
+
 MDN对异步编程的简单描述：
+
 * 通过调用一个函数来启动一个长期运行的操作
 * 让函数开始操作并立即返回，这样我们的程序就可以保持对其他事件做出反应的能力
 * 当操作最终完成时，通知我们操作的结果。
@@ -74,4 +82,36 @@ MDN对异步编程的简单描述：
 ## 二、Promise的基本使用
 
 > Promise 是现代 JavaScript 中异步编程的基础，是一个由异步函数返回的可以向我们指示当前操作所处的状态的对象。在 Promise 返回给调用者的时候，操作往往还没有完成，但 Promise 对象可以让我们操作最终完成时对其进行处理（无论成功还是失败）。
+
+在基于 Promise 的 API 中，异步函数会启动操作并返回 Promise 对象，然后就可以通过将回调函数附加到Promise对象上，当Promise状态改变时，会执行对应的回调函数；
+
+### 1.使用`fetch()`API
+> 全局的 fetch() 方法用于发起获取资源的请求。它返回一个 promise，这个 promise 会在请求响应后被 resolve，并传回 Response 对象。
+
+看一个示例：
+```javascript
+       let pro=fetch("http://promise.cn/test.php",{mode:"cors"})
+       console.log(pro);
+       pro.then((res)=>{
+        console.log(pro);
+        console.log(res);
+       });
+       console.log("已发送请求")
+```
+通过fetch发起一个异步请求，fetch返回一个promise对象，通过这个promise对象可以扩展到回调函数。
+以上代码执行后会首先打印初始的promise对象，因为此时fetch()还没有得到来自url的响应，回调函数不会被调用，初始的peomise对象：
+![小杜的个人图床](http://pic.xiaodu0.com//assets/uploads/20231026/3dadee847f52d22324929d8c23009258.png)
+{Pending}代表此时的promise对象是待定状态，即还没有得到响应，响应还未成功也没有失败。
+之后，当请求响应之后，pro.then()发挥作用，它会打印出这时候的promise对象：
+```javascript
+Promise {<fulfilled>: Response}
+[[Prototype]]: Promise
+[[PromiseState]]: "fulfilled"
+[[PromiseResult]]: Response
+```
+这时候promise对象的状态变成了fulfilled，即已经成功得到响应。
+并且回调函数会接收到一切Response对象，包含当前请求响应的信息。
+
+### 2.链式使用promise
+在promise执行回调函数时会传递一个Response对象，如果想要获取到Response对象包括的返回内容，
 
