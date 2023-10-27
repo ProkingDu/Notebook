@@ -113,5 +113,150 @@ Promise {<fulfilled>: Response}
 并且回调函数会接收到一切Response对象，包含当前请求响应的信息。
 
 ### 2.链式使用promise
-在promise执行回调函数时会传递一个Response对象，如果想要获取到Response对象包括的返回内容，
+在promise执行回调函数时会传递一个Response对象，如果想要获取到Response对象包括的返回内容，需要对Response对象再次使用一次异步操作，如果服务端返回的数据是Json格式的，则调用response对象的json()方法来再次得到一个Promise对象并且异步获得响应内容，如果返回的数据是字符串，则通过text()方法来替换jso()方法。
+**注意：Response 对象被设置为stream格式因此他只能被读取一次，即只能对他执行一次读取的方法（并非读取他的属性）如果你需要多次读取，通过clone()方法克隆一个response对象！**
+例如，读取返回的json数据：
+```javascript
+       let pro=fetch("http://promise.cn/test.php")
+       pro.then((response)=>{
+        let pro2=response.text();
+        pro2.then(function(res){
+            console.log(JSON.parse(res));
+        });
+       });
+       console.log("已发送请求");
+```
+服务端:
+```
+header("Access-Control-Allow-Origin:*");
+echo json_encode(["status"=>200,"msg"=> "success"]);
+```
+控制台输出：
+```
+header("Access-Control-Allow-Origin:*");
+echo json_encode(["status"=>200,"msg"=> "success"]);
+```
+
+由于你无法确定后端返回的数据是json还是字符串，所以标准化的接口开发后端应当在响应头返回json数据时声明：
+```http
+Content-Type:application/json;charset=utf-8
+```
+有时候后端会省略charser=utf-8。
+此时可以通过response对象的header属性来获得对应的header对象，通过header对象获得响应头的Content-Type来决定使用json()还是text()方法。
+
+> 一个 Headers 对象具有关联的标头列表，它最初为空，由零个或多个键值对组成。你可以使用类似于 append() 这样的方法添加（参见示例）到这个对象中。在该接口的所有方法中，标头名称由不区分大小写的字节序列匹配。
+
+可以通过header对象的get()方法来读取响应头中Content-Type的内容。
+
+通过上面的描述，编写一个简单的fetch API模板：
+```javascript
+     let url="http://promise.cn/test.php";
+    // 发起一个promise请求
+    let pro=fetch(url);
+    pro.then((response)=>{
+        // 异步回调
+        let header=response.headers;
+        // 响应头对象
+        let type=header.get("Content-Type");
+        if(type === "text/html" || type === "text/html;charset=UTF-8"){
+            resPromise=response.text();
+        }else if(type === "application/json" || type === "application/json;charset=UTF-8"){
+            resPromise=response.text();
+        }else{
+            resPromise=response.text();
+        }
+
+        // 读取响应消息
+        resPromise.then(function(e){
+            console.log(e);
+            // code here
+        });
+    });
+```
+
+
+实际上应该注意，这个模板仍然是在每个回调函数中进行回调，和之前提到的回调地狱似乎没有区别，所以我们应该注意到：通过json或者text读取promise仍然返回的是一个promise对象，所以可以直接在第一个promise的回调函数中返回新的Promise然后在此函数后进行链式调用Promise，所以可以（也应该）将上面的代码改成这样：
+```javascript
+let url="http://promise.cn/test.php";
+    // 发起一个promise请求
+    let pro=fetch(url);
+    console.log(pro)
+    pro.then((response)=>{
+        // 异步回调
+        let header=response.headers;
+        // 响应头对象
+        let type=header.get("Content-Type");
+        if(type === "text/html" || type === "text/html;charset=UTF-8"){
+            return response.text();
+        }else if(type === "application/json" || type === "application/json;charset=UTF-8"){
+            return response.text();
+        }else{
+            return response.text();
+        }
+    })
+    .then(function(e){
+        // 读取响应消息
+        console.log(e)
+    });
+```
+
+当前严格来说上面的例子还缺少一个流程：判断响应是否成功，如果不成功应该中断接下来的程序执行，并且抛出错误：
+```javascript
+let url="http://promise.cn/test.php";
+    // 发起一个promise请求
+    let pro=fetch(url,{mode:"no-cors"});
+    console.log(pro)
+    pro.then((response)=>{
+        if(!response.ok){
+            throw new Error(`HTTP响应码错误：${response.status}`);
+        }
+        // 异步回调
+        let header=response.headers;
+        // 响应头对象
+        let type=header.get("Content-Type");
+        if(type === "text/html" || type === "text/html;charset=UTF-8"){
+            return response.text();
+        }else if(type === "application/json" || type === "application/json;charset=UTF-8"){
+            return response.text();
+        }else{
+            return response.text();
+        }
+    })
+    .then(function(e){
+        // 读取响应消息
+        console.log(e)
+    });
+```
+
+`response.ok` 包含一个布尔值，其表示请求的响应状态，如果响应存在问题则返回false。
+`response.status` 包含当前响应的状态码。
+
+### 3.错误处理
+Promise提供了`catch()`方法来捕获错误并且交给开发者解决错误。
+传统的异步编程方式例如XMLHttpRequest需要在每个回调函数中进行错误处理，而Promise只需要在链式回调中加入catch()即可。
+```
+// 错误处理
+    let f=fetch("http://promise.cn/tejkl.php");
+    f.then(function(a){
+        console.log(a);
+        return a.json;
+    }).catch(function(e){
+        console.log(e);
+    });
+```
+如果将catch注册到Promise链式调用的末尾，那么任何回调产生错误都会被catch捕获到。
+
+### 4.Promise的状态
+Promise一共有三种状态，分别是：
+* pending 待定状态，此时Promise刚刚被产生，还没有得到响应。
+* fulfilled 已兑现状态，此时Promise已经得到正确的响应并且没有产生错误，对应的这时候then()会被调用。
+* rejuected 已拒绝状态，这时候意味着操作失败。当一个 Promise 失败时，它的 catch() 处理函数被调用。
+
+注意，这里的“成功”或“失败”的含义取决于所使用的 API：例如，fetch() 认为服务器返回一个错误（如404 Not Found）时请求成功，但如果网络错误阻止请求被发送，则认为请求失败。
+
+有时我们用 已敲定（settled） 这个词来同时表示 已兑现（fulfilled） 和 已拒绝（rejected） 两种情况。
+
+如果一个 Promise 处于已决议（resolved）状态，或者它被“锁定”以跟随另一个 Promise 的状态，那么它就是 已兑现（fulfilled）。
+
+### 5.合并多个Promise
 
