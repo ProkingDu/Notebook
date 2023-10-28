@@ -252,7 +252,7 @@ Promise一共有三种状态，分别是：
 * fulfilled 已兑现状态，此时Promise已经得到正确的响应并且没有产生错误，对应的这时候then()会被调用。
 * rejuected 已拒绝状态，这时候意味着操作失败。当一个 Promise 失败时，它的 catch() 处理函数被调用。
 
-注意，这里的“成功”或“失败”的含义取决于所使用的 API：例如，fetch() 认为服务器返回一个错误（如404 Not Found）时请求成功，但如果网络错误阻止请求被发送，则认为请求失败。
+注意，这里的“成功”或“失败”的含义取决于所使用的 API：例如，fetch() 认为服务器返回一个错误（如404 Not Found）时请求成功，但如果网络错误阻止请求被发送，则认为请求失败,即如果服务器响应了 但是返回了一个错误的状态码，这时候仍然是已兑现的状态。
 
 有时我们用 已敲定（settled） 这个词来同时表示 已兑现（fulfilled） 和 已拒绝（rejected） 两种情况。
 
@@ -260,3 +260,146 @@ Promise一共有三种状态，分别是：
 
 ### 5.合并多个Promise
 
+有两种常用的方法来合并多个Promise。
+#### (1).promise.all()
+Promise.all()接受一个Promise组成的数组，当且仅当数组内的Promise对象全部为已兑现状态，promise才会调用接下来的then方法，如果有一个fetch是被拒绝的，那么就会调用catch()并返回相应的错误。
+
+示例：
+```javascript
+pro1=fetch("http://www.xiaodu0.com",{mode:"cors"});
+pro2=fetch("http://promise.cn/test.php",{mode:"cors"});
+Promise.all([pro1,pro2]).then(
+    function(e){
+        for(x of e){
+          console.log(x.url+" status："+x.status)
+        }
+    }
+).catch(function(e){
+    console.log(e);
+});
+```
+
+如果发起一个错误的请求：
+```javascript
+pro1=fetch("http://www.xiaodu0.com",{mode:"cors"});
+pro2=fetch("error://promise.cn/test.php",{mode:"cors"});
+Promise.all([pro1,pro2]).then(
+    function(e){
+        for(x of e){
+          console.log(x.url+"  status："+x.status)
+        }
+    }
+).catch(function(e){
+    console.log("请求失败，错误在:"+e);
+});
+```
+
+则会输出错误的请求的错误信息。
+
+ #### (2).promise.any()
+ > Promise.any() 静态方法将一个 Promise 可迭代对象作为输入，并返回一个 Promise。当输入的任何一个 Promise 兑现时，这个返回的 Promise 将会兑现，并返回第一个兑现的值。当所有输入 Promise 都被拒绝（包括传递了空的可迭代对象）时，它会以一个包含拒绝原因数组的 AggregateError 拒绝。
+
+ 与Promise.all()相反，Promise.any只要有一个promise的状态是已兑现就会响应，而只有所有promise 都是已拒绝的时候才会调用catch();
+
+ 看一个示例：
+ ```
+ let proa=fetch("http://promise.cn/source2.php",{mode:"cors"});
+let prob=fetch("http://promise.cn/source1.php",{mode:"cors"});
+let proc=fetch("http://nopromise.cn/source.php",{mode:"cors"});
+Promise.any([proa,prob,proc]).then(
+    function(e){
+        console.log(e.url+" 请求成功。");
+    }
+).catch((e)=>{
+    for (x of e){
+       console.log(x.url+" 请求失败，原因"+x); 
+    }
+});
+ ```
+
+ 我在source.php 返回了404，但是Promise仍然在proa响应的时候打印了请求成功，因为即使是404 promise仍然得到了服务器的响应，所以是已敲定状态，而当any()时，只要有一个Promise响应成功了，就不在等待其他的响应如果我将这三个地址都改成无法连接的地址：
+ ```javascript
+ let proa=fetch("http://nopromise.cn/source2.php",{mode:"cors"});
+let prob=fetch("http://nopromise.cn/source1.php",{mode:"cors"});
+let proc=fetch("http://nopromise.cn/source.php",{mode:"cors"});
+Promise.any([proa,prob,proc]).then(
+    function(e){
+        console.log(e.url+" 请求成功。");
+    }
+).catch((e)=>{
+    for (x of e){
+       console.log(x.url+" 请求失败，原因"+x); 
+    }
+});
+ ```
+ Promise.any()会调用catch()并且给出：
+> AggregateError: All promises were rejected
+
+
+### 6.使用async与await
+通async与await可以像编写同步代码一样编写异步函数。
+首先在函数定义前使用async关键字，然后在函数内调用的返回promise的函数之前使用await，函数就会等待fetch()执行完成再返回内容，并且函数的返回值是一个Promise对象。
+假设我需要从服务端获取一些用户的数据，并且通过async与await实现异步操作：
+```javascript
+async function getUser(){
+    try{
+        let res=await fetch("http://promise.cn/user.php",{mode:"cors"});
+        if(!res.ok){
+            throw new Error("请求失败，HTTP响应："+res.status);
+        }
+        let json=await res.json();
+        console.log("用户数据获取成功！");
+        console.log(json);
+    }
+    catch (error){
+        console.log("失败："+error);
+    }
+}
+
+getUser();
+```
+**在函数内调用返回值为Promise的对象一定要使用await**
+值得注意的是：
+**由于Promise只有在服务器拒绝的时候才调用catch，而如果服务器响应了请求，但是状态码不是200让仍然会调用then，所以我们可以在then中通过response.ok来判断响应是否正确，如果不正确则抛出错误，这时候promise的catch仍然能够捕获到错误**
+上面的例子输出：
+![小杜的个人图床](http://pic.xiaodu0.com//assets/uploads/20231028/6160952c40fedf578677ebe699b15ecd.png)
+
+如果你在定义的异步函数中返回await的值，它仍然是会返回一个Promise对象，而非和函数内一样返回的是异步处理之后的值。
+例如 上面的代码中的``let json=await res.json()`` 虽然在函数内他是异步的json，但是如果你在函数中`return json` 在之后得到的值仍然是一个Promise对象，其实就是，函数的执行是异步的，但是函数的返回是同步的，当你执行：
+```
+let user=getUser();
+console.log(user);
+```
+时，控制台会立即打印一个pending状态的Promise。
+
+所以我们可以取得定义的异步函数的返回值继续进行promise的操作。
+如果上面的例子我想要在函数之后进行将用户数据输出在页面中：
+```javascript
+async function getUser(){
+    try{
+        let res=await fetch("http://promise.cn/user.php",{mode:"cors"});
+        if(!res.ok){
+            throw new Error("请求失败，HTTP响应："+res.status);
+        }
+        let json=await res.json();
+        return json;
+    }
+    catch (error){
+        console.log("失败："+error);
+    }
+}
+let data=getUser();
+data.then(function(e){
+    for(x of e){
+        document.write(x.id+"：");
+        for(y in x){
+            document.write(`${y}:${x[y]} &nbsp;&nbsp;&nbsp;`);
+        }
+        document.write("<br>");
+    }
+})
+```
+
+当然这种方法实际上并不是最合适的，但是实现目的的路不止一条，我们可以选择最容易的那条。
+运行结果：
+![小杜的个人图床](http://pic.xiaodu0.com//assets/uploads/20231028/966dc05fdb6e0415c81656ef4dd92e17.png)
