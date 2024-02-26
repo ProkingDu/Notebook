@@ -11,13 +11,8 @@
             "id": "81f2c5058a8a2d8b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
-                "mode": "source",
-                "backlinks": false,
-                "source": false
-              }
+              "type": "graph",
+              "state": {}
             }
           }
         ]
@@ -86,7 +81,6 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -103,7 +97,6 @@
         "state": {
           "type": "outgoing-link",
           "state": {
-            "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
           }
@@ -114,9 +107,7 @@
         "type": "leaf",
         "state": {
           "type": "outline",
-          "state": {
-            "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md"
-          }
+          "state": {}
         }
       }
     ],
