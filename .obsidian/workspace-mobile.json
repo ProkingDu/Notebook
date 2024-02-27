@@ -11,8 +11,12 @@
             "id": "81f2c5058a8a2d8b",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Python/基础补充.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
         "state": {
           "type": "backlink",
           "state": {
+            "file": "Python/基础补充.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
         "state": {
           "type": "outgoing-link",
           "state": {
+            "file": "Python/基础补充.md",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
           }
@@ -107,7 +113,9 @@
         "type": "leaf",
         "state": {
           "type": "outline",
-          "state": {}
+          "state": {
+            "file": "Python/基础补充.md"
+          }
         }
       }
     ],
@@ -125,6 +133,8 @@
   },
   "active": "81f2c5058a8a2d8b",
   "lastOpenFiles": [
+    "Python/pandas.md",
+    "Python/基础补充.md",
     "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
     "大前端/JavaScript"
   ]
