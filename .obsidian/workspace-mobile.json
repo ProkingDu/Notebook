@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+                "file": "Python/基础补充.md",
                 "mode": "source",
                 "source": false
               }
@@ -32,7 +32,7 @@
             "state": {
               "type": "localgraph",
               "state": {
-                "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+                "file": "Python/基础补充.md",
                 "options": {
                   "collapse-filter": true,
                   "search": "",
@@ -128,7 +128,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+            "file": "Python/基础补充.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -145,7 +145,7 @@
         "state": {
           "type": "outgoing-link",
           "state": {
-            "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+            "file": "Python/基础补充.md",
             "linksCollapsed": false,
             "unlinkedCollapsed": true
           }
@@ -157,12 +157,12 @@
         "state": {
           "type": "outline",
           "state": {
-            "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md"
+            "file": "Python/基础补充.md"
           }
         }
       }
     ],
-    "currentTab": 0
+    "currentTab": 2
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -176,8 +176,8 @@
   },
   "active": "81f2c5058a8a2d8b",
   "lastOpenFiles": [
-    "Untitled.canvas",
     "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+    "Untitled.canvas",
     "Python/基础补充.md",
     "Python/pandas.md",
     "大前端/JavaScript"
