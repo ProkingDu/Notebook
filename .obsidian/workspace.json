@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "3179a19687af51fc",
+        "id": "18669cf058aaf687",
         "type": "tabs",
         "children": [
           {
-            "id": "fce2053d3d699862",
+            "id": "5d48fe368d7bae52",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+                "file": "Python/文档补充/词法分析.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+                "file": "Python/文档补充/词法分析.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+                "file": "Python/文档补充/词法分析.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md"
+                "file": "Python/文档补充/词法分析.md"
               }
             }
           }
@@ -146,10 +146,14 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "fce2053d3d699862",
+  "active": "5d48fe368d7bae52",
   "lastOpenFiles": [
-    "项目记录/Webnull外汇交易所二次开发/金融基础.md",
+    "Python/文档补充/数据模型.md",
+    "Python/文档补充/词法分析.md",
+    "Python/文档补充",
+    "碎片记录/2023.10/第三周.md",
     "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+    "项目记录/Webnull外汇交易所二次开发/金融基础.md",
     "Arduino/Arduino基础/01.常用函数及扩展解析.md",
     "小程序/4.WXML-事件绑定.md",
     "小程序/5.条件渲染和列表渲染.md",
