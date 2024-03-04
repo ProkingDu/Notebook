@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Python/文档补充/词法分析.md",
+                "file": "Python/文档补充/数据模型.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Python/文档补充/词法分析.md",
+                "file": "Python/文档补充/数据模型.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Python/文档补充/词法分析.md",
+                "file": "Python/文档补充/数据模型.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Python/文档补充/词法分析.md"
+                "file": "Python/文档补充/数据模型.md"
               }
             }
           }
@@ -148,8 +148,8 @@
   },
   "active": "5d48fe368d7bae52",
   "lastOpenFiles": [
-    "Python/文档补充/数据模型.md",
     "Python/文档补充/词法分析.md",
+    "Python/文档补充/数据模型.md",
     "Python/文档补充",
     "碎片记录/2023.10/第三周.md",
     "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
