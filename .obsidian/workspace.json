@@ -38,7 +38,7 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "byModifiedTime"
               }
             }
           },
@@ -148,11 +148,19 @@
   },
   "active": "5d48fe368d7bae52",
   "lastOpenFiles": [
-    "项目记录/京东E卡商城开发.md",
+    "项目记录/Webnull外汇交易所二次开发/金融基础.md",
+    "大前端/Grid布局.md",
+    "大前端/MDN/Javascript异步编程.md",
+    "大前端/MDN/window.URL接口.md",
+    "大前端/MDN/Storage对象.md",
+    "2024-03-17.md",
+    "Docker/Docker入门.md",
     "Python/文档补充/数据模型.md",
+    "Pasted image 20240317160042.png",
+    "Pasted image 20240317155344.png",
+    "项目记录/京东E卡商城开发.md",
     "009D04D6.png",
     "Pasted image 20240309190804.png",
-    "项目记录/Webnull外汇交易所二次开发/金融基础.md",
     "Python/文档补充/词法分析.md",
     "Python/文档补充",
     "碎片记录/2023.10/第三周.md",

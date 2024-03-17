@@ -407,3 +407,90 @@ multiExpress() {
 
 ## Github Hook 多站点自动更新
 
+
+
+## Git忽略文件的问题
+
+遇到的情况是：
+
+在我将本地仓库的代码push到github时，由于之前已经提交了代码，某些应该被忽略的文件也被提交上去了，然后我再在 `.gitignore` 中添加忽略的文件名却不起作用。
+
+我尝试删除这个文件再添加到.gitignore中，仍然不起作用。
+
+网上查了一下 是因为.gitignore只有对未被追踪的（**Untrackd**）文件有效，而例如`.env`这个文件之前就已经被追踪了，我再想忽略这个文件就要取消对他的追踪。
+
+其实很简单，只需要执行：
+```
+git rm -r --cached <filename>
+```
+
+实际上如果是单文件可以只使用--cached参数而不必使用-r参数。
+
+`-r` 表示递归地删除文件。
+
+`--cached` 则表示仅在暂存区中移除而不改变工作区的文件，即仅仅从跟踪的清单中删除。
+
+例如：
+```
+git rm --cached index.html
+```
+
+此时index.html会从暂存区中删除，如果不使用`--cached` 参数而是直接执行`git rm`则会在暂存区和工作区中都删除index.html。
+
+在执行上述命令之后，执行`git status index.html`：
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/13/174678b9e240334cf7de64775ea78dcb.png)
+
+最新的状态是index.html未被跟踪。
+
+此时查看vscode的版本管理：
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/13/16b49fd6f680fa6d5d3867db388ad498.png)
+
+暂存的更改中出现了index.html但是被划线了，说明此时删除index.html的操作还未被提交，这只是index.html的一次改动，他仍然会被追踪。
+
+如果这个时候执行：
+```
+git reset index.html
+```
+
+撤销上次将index.html从暂存区删除的暂存的操作（因为在暂存区删除index.html之后，暂存区实际上还是暂存了删除index.html这个状态。），index.html还是会重新回到暂存区。
+
+但是如果在从暂存区删除index.html之后：
+```
+git commit -m "untrack index.html"
+git status index.html
+```
+
+此时index.html已经完全中暂存区和本地仓库中移除了。
+
+这时候在.gitignore中加入`index.html`之后，index.html就完全不会被追踪了。并且整个操作不会对工作区的文件产生影响。
+
+总结一下，如果想要取消追踪已经提交的文件，通过：
+```
+git rm -r --cached <filename>
+git commit -m "untrack file"
+git push
+```
+
+然后在`.gitignore`中加入此文件即可。
+
+同时补充一下关于文件状态：
+
+1. **Untracked**
+
+未跟踪, 此文件在文件夹中, 但并没有加入到git库, 不参与版本控制. 通过git add 状态变为Staged.
+
+2. **Unmodify**
+
+表示文件已经入库，但是没有进行更改，这种文件可以通过 `git rm`从版本库移除，变为 **Untracked**状态，但是注意直接`git rm`会导致工作区的文件也被删除。
+
+如果此类文件内容被修改，则会变为`Modify`状态
+
+3. **Modify** 
+
+**Modify** 表示文件已经被修改，并且会被git追踪，通过`git add`即可将此类文件加入暂存区。
+
+4. **Staged**
+
+**Staged** 表示文件已经被添加到暂存区，但是没有提交到本地仓库，通过 `git commit` 将Staged类型的文件提交到本地仓库。当文件被提交到本地仓库时，工作区的文件和仓库中的文件版本一致，则此时文件又会变为 **Unmodify** 状态。
+
+通过`git reset HEAD <filename>` 将文件移出暂存区，则文件变为`Modify`已修改状态。

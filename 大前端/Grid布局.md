@@ -121,6 +121,7 @@ repeat(num,size)
 ```
 
 结果：
+
 ![小杜的个人图床](http://src.xiaodu0.com/2023/12/17/7ee6414fef7092fe03804745732d6c39.png)
 
 

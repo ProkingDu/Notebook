@@ -169,3 +169,479 @@ Docker Registry 公开服务是开放给用户使用、允许用户管理镜像�
 开源的 **Docker** **Registry** 镜像只提供了 **Docker** **Registry** **API** 的服务端实现，足以支持 docker 命令，不影响使用。但不包含图形界面，以及镜像维护、用户管理、访问控制等高级功能。
 
 除了官方的 Docker Registry 外，还有第三方软件实现了 Docker Registry API，甚至提供了用户界面以及一些高级功能。比如，**Harbor** 和 **Sonatype** **Nexus**。
+
+
+## 安装Docker
+
+测试环境为Vmware Workstation 下的ubuntu 虚拟机。
+
+
+### 卸载旧版本
+
+在安装最新版本的Docker之前，首先卸载旧的Docker版本（确保没有重要的数据）。
+
+```bash
+sudo apt-get remove docker \ docker.io \ docker-engine
+```
+
+
+### 安装依赖及软件包
+
+
+由于apt源使用https进行传输，因此在新机器上安装Docker之前要先升级apt并且安装用于https传输的软甲包和证书。
+
+```bash
+sudo apt-get update
+
+sudo apt-get install apt-transport-https \ ca-certificates \ curl \ gnupg \ lsb-release
+```
+
+上述安装的软件包分别是：
+
+1. apt-transport-https   用于安装ubuntu对https的支持
+2.  ca-certificates 用于验证SSL/TLS 证书的根证书的集合
+3.  curl 最常用的网络请求工具
+4. gnupg  **GNU Privacy Guard** Linux平台流行的加密工具
+5. lsb-release  Linux版本信息工具
+
+执行更新和安装指令发现非常慢，更换apt软件源：
+
+```bash
+cp /etc/apt/sources.list /etc/apt/sources.list.bak #备份源
+sudo vi /etc/apt/sources.list
+i
+"deb http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+deb-src http://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe 
+"
+:wq
+
+sudo apt-get update # 更新源
+
+sudo apt-get install apt-transport-https \ ca-certificates \ curl \ gnupg \ lsb-release
+# 安装软件包
+```
+
+这里总是出现各种各样的问题，比如下载速度过慢（已经尝试更换镜像源）和无法定位到软件包，后面换一台云服务器操作。
+
+这里我使用的是安装了CentOs操作系统的云服务器所以对以上的apt-get操作全部换成yum。
+
+首先卸载旧版本：
+``` bash
+sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+```
+
+Bash:
+```bash
+No Match for argument: docker
+No Match for argument: docker-client
+No Match for argument: docker-client-latest
+No Match for argument: docker-common
+No Match for argument: docker-latest
+No Match for argument: docker-latest-logrotate
+No Match for argument: docker-logrotate
+No Match for argument: docker-selinux
+No Match for argument: docker-engine-selinux
+No Match for argument: docker-engine
+No Packages marked for removal
+```
+
+此系统未安装过任何旧版的Docker.
+
+安装依赖包：
+```bash
+sudo yum install -y yum-utils
+```
+
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/04b7c68effb7d6f8b725c546eb3b5de4.png)
+
+
+
+更换软件镜像源：
+
+```bash
+sudo yum-config-manager \
+    --add-repo \
+    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+
+sudo sed -i 's/download.docker.com/mirrors.aliyun.com\/docker-ce/g' /etc/yum.repos.d/docker-ce.repo
+```
+
+
+
+安装Docker-ce:
+
+```bash
+sudo yum install docker-ce docker-ce-cli containerd.io
+```
+
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/4ce28722a25cefb8042b794b908e3aed.png)
+
+
+软件包解释：
+1.  docker-ce Docker的社区版软件
+2.  docker-ce-cli  它提供了与Docker守护进程进行交互的命令行接口，可以用于管理和操作Docker容器、镜像、网络等。
+3. containerd.io    从docker中分离出的底层的工业级的容器运行时。
+### 关于Docker与docker和Docker的各种版本
+
+在上方安装的过程中都要首先卸载docker再安装Docker，实际上这两个`docker`不是一个东西。
+
+在容器化技术出现之前，Linux已经存在一个名为docker的窗口停靠栏程序，类似macos的底部停靠栏。
+
+我们暂时以不同的首字母大小写区分，docker代表较早的GUI程序，Docker代表容器化技术。
+
+由于Docker发布时的官网是docker.io，所以在ubuntu上Docker的软件名是docker.io，而在Centos上则是docker.io。
+
+虽然软件名更改了，但是操作的指令都是docker，因此在安装Docker之前，要确保没有安装docker,如果有的话就要先卸载。
+
+这时候的安装命令：
+```
+# ubnutu
+apt-get install docker.io
+
+# centos
+yum install docker-io
+```
+
+
+后来随着Dcokre的发展，docker-io又被改名为 `docker-engine`，且在ubuntu的centos平台上的名称都一致。
+
+```
+apt-get install docker-engine
+
+yum install docker-engine
+```
+
+随着Docker技术越来越流行，在征得原作者同意以后，docker被改名为`wm-docker`，此后Docker正式的使用`docker`命令。因此在新版的Linux系列操作系统重，如果你安装了wmdocker也不必卸载他， 但是为了保证不出错误，我们习惯上还是会在安装Docekr之前检测是否安装了旧版的docker。
+
+
+目前与我们最相关的就是docker-ce和docker-ee
+
+这两者最大的区别就是docker-ce是个人使用和学习的版本，docker-ee是商业版本。
+
+在安装Docker的时候，就不必再考虑docker-io、docker-engine、docker这些旧版本了，只需要根据用途选择docker-ee和docker-ce即可。
+
+在Ubuntu平台比较特殊，docker.io版本仍然在一直更新维护。
+
+
+### centos8额外设置
+
+由于 CentOS8 防火墙使用了 `nftables`，但 Docker 尚未支持 `nftables`， 我们可以使用如下设置使用 `iptables`：
+
+更改 `/etc/firewalld/firewalld.conf`
+
+复制
+
+```bash 
+# FirewallBackend=nftables
+FirewallBackend=iptables
+```
+
+或者执行如下命令：
+
+```bash 
+$ firewall-cmd --permanent --zone=trusted --add-interface=docker0
+
+$ firewall-cmd --reload
+
+```
+
+
+
+### 使用安装脚本
+
+docker提供了简化的安装脚本以便快速安装部署Docker：
+```bash 
+curl -fsSL get.docker.com -o get-docker.sh
+sudo sh get-docker.sh --mirror Aliyun
+```
+
+执行这个命令后，脚本就会自动的将一切准备工作做好，并且把 Docker 的稳定(stable)版本安装在系统中
+
+
+### 设置用户组
+
+默认情况下，`docker` 命令会使用 [Unix socket](https://en.wikipedia.org/wiki/Unix_domain_socket) 与 Docker 引擎通讯。而只有 `root` 用户和 `docker` 组的用户才可以访问 Docker 引擎的 Unix socket。出于安全考虑，一般 Linux 系统上不会直接使用 `root` 用户。因此，更好地做法是将需要使用 `docker` 的用户加入 `docker` 用户组。
+
+建立 `docker` 组：
+
+复制
+
+```
+$ sudo groupadd docker
+```
+
+将当前用户加入 `docker` 组：
+
+复制
+
+```
+$ sudo usermod -aG docker $USER
+```
+
+
+### 启动与测试
+
+我在尝试启动Docker的时候报出了一堆错误，首先尝试关闭防火墙：
+```bash
+systemctl disable firewalld.service
+```
+
+接着重新启动Docker：
+```bash
+systemctl restart docker
+```
+
+仍然没有作用。
+
+检查SELinx:
+```bash
+/usr/sbin/sestatus -v
+```
+
+已经关闭了selinux。
+
+检查用户组;
+
+```bash
+cat /etc/group
+```
+
+用户组没问题。
+
+无果，重启大法：
+
+```
+init 6
+...
+
+systemctl restart docker
+docker run --rm hello-world
+```
+
+成功！！！！
+
+在安装完Docker之后首先启动Docker之后运行`hello-world`容器测试：
+
+```
+systemctl start docker
+
+docker run --rm hello-word
+```
+
+docker是操作Docker的命令，run表示运行容器，`--rm`指在关闭容器之后就销毁。
+
+### 设置加速器
+
+由于默认的Docker使用官方镜像可能存在下载缓慢的问题（如果是国外的服务器则不考虑这个问题），因此需要设置国内镜像的加速器。
+
+这里使用网易云镜像：`https://hub-mirror.c.163.com`
+
+
+目前主流 Linux 发行版均已使用 [systemd](https://systemd.io/) 进行服务管理，配合systemd可以很方便的进行docker镜像源的配置。
+
+首先执行：
+```bash
+systemctl cat docker | grep '\-\-registry\-mirror'
+```
+
+如果该命令有输出，执行 `$ systemctl cat docker` 查看 `ExecStart=` 出现的位置，修改对应的文件内容去掉 `--registry-mirror` 参数及其值，并按接下来的步骤进行配置。
+
+这里我测试没有任何输出，默认安装的Docker没有配置其他镜像源。
+
+修改`/etc/docker/daemon.json`写入：
+```json
+{
+  "registry-mirrors": [
+    "https://hub-mirror.c.163.com",
+    "https://mirror.baidubce.com"
+  ]
+}
+```
+
+查看一下，测试的服务器中没有此文件，则进行创建并写入上述内容：
+
+```bash
+[root@iZj6c7vv738lrw2660ktq6Z 818s.s12k.cc]# cat /etc/docker/daemon.js
+cat: /etc/docker/daemon.js: No such file or directory
+
+vim /etc/docker/daemon.json
+```
+之后重新启动服务。
+
+
+```
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+```
+
+
+检测加速器是否生效：
+
+```
+docker info
+```
+
+执行docker info查看docker的基本信息，如果存在以下内容则说明加速器配置成功。
+
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/05db65fb9c2fdf7c92a583fb70243dd0.png)
+
+
+可用docker镜像以及日常的测试：
+[Test Registry · docker-practice/docker-registry-cn-mirror-test@83a4dd4 (github.com)](https://github.com/docker-practice/docker-registry-cn-mirror-test/actions/runs/8311801802)
+
+
+
+## 使用镜像
+
+### 获取镜像
+
+
+在使用镜像之前要从Dockerhub中拉取镜像，类似于Git的操作，拉取镜像的命令是：
+```
+docekr pull [Docker Registry:端口/]仓库名[:标签]
+```
+
+其中中括号的部分是可选的，如果不指定Docker Registry的地址，则使用官方的Dockerhub作为镜像源，如果配置了加速器，则优先使用加速器作为源。
+
+之前配置的网易云和百度源尝试pull失败，使用阿里云源;
+[容器镜像服务 (aliyun.com)](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)
+
+登录之后即可查看镜像源地址。
+
+尝试拉取ubuntu18.04镜像：
+```
+docker pull ubuntu:18.04
+```
+
+**如果不指定标签直接pull则获取最新的latest版本。**
+
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/bb3e1e6078009f9e17a1e8089b7f4616.png)
+
+
+> 具体的选项可以通过 `docker pull --help` 命令看到，这里我们说一下镜像名称的格式。
+
+- Docker 镜像仓库地址：地址的格式一般是 `<域名/IP>[:端口号]`。默认地址是 Docker Hub(`docker.io`)。
+    
+- 仓库名：如之前所说，这里的仓库名是两段式名称，即 `<用户名>/<软件名>`。对于 Docker Hub，如果不给出用户名，则默认为 `library`，也就是官方镜像。
+
+在获取镜像之后就可以通过镜像创建一个容器来运行：
+
+```
+docker run -it --rm centos bash
+```
+
+这里的命令是运行容器的命令，其中的
+`-it` 是`-i`和`-t`结合的参数，表示应当启动一个交互式（i）终端（t）,并且通过`--rm`表示销毁容器之后删除相关文件。 `bash`表示放在镜像名后的是 **命令**，这里我们希望有个交互式 Shell，因此用的是 `bash`。`centos`通过centos镜像运行容器。
+
+在启动之后终端会进入容器的终端，通过：
+```bash
+cat /etc/issue
+```
+
+查看发行版信息。
+
+
+由于我使用的是centos系统作为宿主机，因此使用Ubuntu:18.04来体现差异：
+```
+docker run -it --rm ubuntu:18.04 bash
+```
+
+然后执行
+```
+cat /etc/issue # 查看容器发行版本信息
+exit # 退出容器终端
+cat /etc/issue # 查看宿主机发型版本信息
+```
+
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/30eb93e293642aa47c1bbbef28ef438b.png)
+
+由此可以体验容器具有独立的文件系统。
+
+
+这里有一个疑惑：
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/68d99f03b97f5e9072bb422d2f97738f.png)
+
+宿主机的一些关于硬件配置的文件和信息会被容器继承，不清楚这个原理是什么，等完成了解Docker以后再深入研究。
+
+
+### 列出镜像
+
+#### 命令
+
+通过
+```
+docker image ls
+```
+
+列出本地已经下载的镜像。
+
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/9c5959731f3f95629cc62a6f597a2a31.png)
+
+列表包含了 `仓库名`、`标签`、`镜像 ID`、`创建时间` 以及 `所占用的空间`。
+
+其中仓库名、标签在之前的基础概念章节已经介绍过了。**镜像 ID** 则是镜像的唯一标识，一个镜像可以对应多个 **标签**。
+
+#### 镜像体积
+
+如果仔细观察，会注意到，这里标识的所占用空间和在 Docker Hub 上看到的镜像大小不同。比如，`ubuntu:18.04` 镜像大小，在这里是 `63.3MB`，但是在 [Docker Hub](https://hub.docker.com/layers/ubuntu/library/ubuntu/bionic/images/sha256-32776cc92b5810ce72e77aca1d949de1f348e1d281d3f00ebcc22a3adcdc9f42?context=explore) 显示的却是 `25.47 MB`。这是因为 Docker Hub 中显示的体积是压缩后的体积。在镜像下载和上传过程中镜像是保持着压缩状态的，因此 Docker Hub 所显示的大小是网络传输中更关心的流量大小。而 `docker image ls` 显示的是镜像下载到本地后，展开的大小，准确说，是展开后的各层所占空间的总和，因为镜像到本地后，查看空间的时候，更关心的是本地磁盘空间占用的大小。
+
+另外一个需要注意的问题是，`docker image ls` 列表中的镜像体积总和并非是所有镜像实际硬盘消耗。由于 Docker 镜像是多层存储结构，并且可以继承、复用，因此不同镜像可能会因为使用相同的基础镜像，从而拥有共同的层。由于 Docker 使用 Union FS，相同的层只需要保存一份即可，因此实际镜像硬盘占用空间很可能要比这个列表镜像大小的总和要小的多。
+
+
+
+可以通过：
+```
+docker system df
+```
+
+查看Docker的镜像、容器和数据卷所占用的空间。
+
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/968566f4bab8863978bd7b930b6384b3.png)
+
+即使我已经创建了几个容器进行测试，这里的Containers却仍然是0，这就是`--rm`参数的妙用，通过`--rm`运行容器可在容器结束时就释放容器和相关的内存占用。
+
+
+
+#### 虚悬镜像
+
+
+上面的镜像列表中，还可以看到一个特殊的镜像，这个镜像既没有仓库名，也没有标签，均为 `<none>`。
+
+```
+<none>               <none>              00285df0df87        5 days ago          342 MB
+```
+
+这个镜像原本是有镜像名和标签的，原来为 `mongo:3.2`，随着官方镜像维护，发布了新版本后，重新 `docker pull mongo:3.2` 时，`mongo:3.2` 这个镜像名被转移到了新下载的镜像身上，而旧的镜像上的这个名称则被取消，从而成为了 `<none>`。除了 `docker pull` 可能导致这种情况，`docker build` 也同样可以导致这种现象。由于新旧镜像同名，旧镜像名称被取消，从而出现仓库名、标签均为 `<none>` 的镜像。这类无标签镜像也被称为 **虚悬镜像(dangling image)** ，可以用下面的命令专门显示这类镜像：
+```
+docker image ls -f dangling=true
+```
+
+
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/0fb14b3e1e5982177ae0dd12a2dfd687.png)
+
+一般来说，虚悬镜像已经失去了存在的价值，是可以随意删除的，可以用下面的命令删除。
+
+```bash 
+docker image prune
+```
+
+
+![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/46b0ef62ed17aa320e9bb5f655288899.png)
+
