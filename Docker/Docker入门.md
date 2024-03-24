@@ -350,7 +350,7 @@ yum install docker-engine
 
 ```bash 
 # FirewallBackend=nftables
-FirewallBackend=iptables
+
 ```
 
 或者执行如下命令：
@@ -645,3 +645,210 @@ docker image prune
 
 ![小杜的个人图床](http://src.xiaodu0.com/2024/03/17/46b0ef62ed17aa320e9bb5f655288899.png)
 
+
+#### 中间层镜像
+
+中间层镜像是用于Docker提高运行效率和加速镜像构建、重复利用资源而产生的一种优化方式，在使用一段时间后可能会看到某些依赖的中间层镜像，当通过`docker image ls`查看镜像时，通常不包含这些镜像。
+
+使用
+```bash
+docker image ls -a
+```
+
+来查看所有包含中间层镜像相关的镜像。
+
+这样会看到很多无标签的镜像，与之前的虚悬镜像不同，这些无标签的镜像很多都是中间层镜像，是其它镜像所依赖的镜像。这些无标签镜像不应该删除，否则会导致上层镜像因为依赖丢失而出错。实际上，这些镜像也没必要删除，因为之前说过，相同的层只会存一遍，而这些镜像是别的镜像的依赖，因此并不会因为它们被列出来而多存了一份，无论如何你也会需要它们。只要删除那些依赖它们的镜像后，这些依赖的中间层镜像也会被连带删除。
+
+
+#### 列出部分镜像
+
+不加任何参数的情况下，`docker image ls` 会列出所有顶层镜像，但是有时候我们只希望列出部分镜像。`docker image ls` 有好几个参数可以帮助做到这个事情。
+
+1. **根据仓库名列出镜像**
+
+例如
+```bash
+docker image ls centos
+```
+
+即只列出Centos相关的镜像。
+
+2. **指定仓库名和标签**
+
+例如：
+
+```bash
+root@Proking:~# docker image ls centos:7
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+centos       7         eeb6ee3f44bd   2 years ago   204MB\
+```
+
+通过指定仓库和标签即可只列出某个仓库的某个标签的镜像。
+
+3. 过滤器参数
+
+`docker image ls` 还支持强大的过滤器参数 `--filter`，或者简写 `-f`。之前我们已经看到了使用过滤器来列出虚悬镜像的用法，它还有更多的用法。比如，我们希望看到在 `centos:7.2` 之后建立的镜像，可以用下面的命令：
+```docker
+docker image ls -f since=centos:7.2
+```
+
+注意：**这里的since是指在你的本地在centos:7.2镜像创建之后产生的镜像，而非在Docker在其之后的，因此不应该作为版本先后判断的依据。****
+
+```bash
+root@Proking:~# docker image ls -f since=centos:latest
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+debian       latest    6f4986d78878   2 years ago   124MB
+centos       7         eeb6ee3f44bd   2 years ago   204MB
+```
+
+同时也支持**before**参数， 即 **在某个镜像创建之前创建的镜像**。
+
+```bash
+docker image ls -f before=debain:latest
+```
+
+```
+root@Proking:~# docker image ls -f before=debian:latest
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+centos       7         eeb6ee3f44bd   2 years ago   204MB
+centos       latest    5d0da3dc9764   2 years ago   231MB
+```
+
+4. label过滤
+
+如果定义了镜像的label，也可以通过label来筛选镜像：
+```bash
+docker image ls -f label=...
+```
+
+5. 配合Linux命令使用
+
+如果你实在有太多镜像（不考虑其他情况），而没办法准确找到这些镜像，如果要根据名称或者其他关键词来搜索镜像，配合Linux命令是一个很好的方式：
+```bash
+docker image ls -a | grep latest
+# 列出所有最新版的镜像。
+```
+
+同时，例如其他有用的命令，接续执行也能起到意想不到的效果：
+```bash
+root@Proking:~# docker image ls -a | tee list.txt > /dev/null
+root@Proking:~# ls
+list.txt
+root@Proking:~# cat list.txt
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+debian       latest    6f4986d78878   2 years ago   124MB
+centos       7         eeb6ee3f44bd   2 years ago   204MB
+centos       latest    5d0da3dc9764   2 years ago   231MB
+```
+
+
+搜索200MB以上300MB以下的镜像并保存到gigant.txt中：
+```bash
+echo `docker image ls -a | grep -E "2[0-9]{2}MB"` > gigant.txt
+```
+
+```bash
+root@Proking:~# docker image ls -a | grep -E "2[0-9]{2}MB" | tee  gigant.txt > /dev/null
+root@Proking:~# cat gigant.txt 
+centos       7         eeb6ee3f44bd   2 years ago   204MB
+centos       latest    5d0da3dc9764   2 years ago   231MB
+
+```
+
+
+
+#### 以特定格式显示
+
+默认情况下，`docker image ls` 会输出一个完整的表格，但是我们并非所有时候都会需要这些内容。比如，刚才删除虚悬镜像的时候，我们需要利用 `docker image ls` 把所有的虚悬镜像的 ID 列出来，然后才可以交给 `docker image rm` 命令作为参数来删除指定的这些镜像，这个时候就用到了 `-q` 参数。
+
+```bash
+root@Proking:~# docker image ls -q
+6f4986d78878
+eeb6ee3f44bd
+5d0da3dc9764
+```
+
+`--filter` 配合 `-q` 产生出指定范围的 ID 列表，然后送给另一个 `docker` 命令作为参数，从而针对这组实体成批的进行某种操作的做法在 Docker 命令行使用过程中非常常见。
+
+
+如果想要自定义表格结构，可以通Go的模版语法来操作：
+```bash
+docker image ls --format "{{.Repository}}  {{.Tag}}"
+```
+
+```
+root@Proking:~# docker image ls --format "{{.Repository}}  {{.Tag}}"
+debian  latest
+centos  7
+centos  latest
+```
+
+
+### 删除本地镜像
+
+#### 删除镜像
+
+如同 `docker image ls` 一样，删除本地镜像使用 `docker image rm`
+
+```
+docker image rm [选项] <镜像1> [镜像2 镜像...]
+```
+
+其中，`<镜像>` 可以是 `镜像短 ID`、`镜像长 ID`、`镜像名` 或者 `镜像摘要`。
+
+比如我们有这么一些镜像：
+
+```
+$ docker image ls
+REPOSITORY                  TAG                 IMAGE ID            CREATED        
+centos                      latest              0584b3d2cf6d        3 weeks ago    
+redis                       alpine              501ad78535f0        3 weeks ago   
+docker                      latest              cf693ec9b5c7        3 weeks ago    
+nginx                       latest              e43d811ce2f4        5 weeks ago    
+```
+
+我们可以用镜像的完整 ID，也称为 `长 ID`，来删除镜像。使用脚本的时候可能会用长 ID，但是人工输入就太累了，所以更多的时候是用 `短 ID` 来删除镜像。`docker image ls` 默认列出的就已经是短 ID 了，一般取前3个字符以上，只要足够区分于别的镜像就可以了。
+
+例如删除上面列出的redis:alpine镜像，可以使用：
+```bash
+docker image rm redis:alpine
+```
+
+也可以使用：
+```bash
+docker image rm 501ad78535f0
+```
+
+如果他的短ID是311 也可以直接这样删除：
+```bash
+docker image rm 311
+```
+
+
+
+#### Untagged和Deleted
+
+由于镜像的构成是包含仓库名和版本标签的，因此在执行`docker image rm`时可能看到如下信息：
+
+```
+Untagged: centos:7
+Untagged: centos@sha256:9d4bcbbb213dfd745b58be38b13b996ebb5ac315fe75711bd618426a630e0987
+```
+
+这里是移除标签的信息，镜像的唯一标识是其 ID 和摘要，而一个镜像可以有多个标签。
+
+因此当我们使用上面命令删除镜像的时候，实际上是在要求删除某个标签的镜像。所以首先需要做的是将满足我们要求的所有镜像标签都取消，这就是我们看到的 `Untagged` 的信息。因为一个镜像可以对应多个标签，因此当我们删除了所指定的标签后，可能还有别的标签指向了这个镜像，如果是这种情况，那么 `Delete` 行为就不会发生。所以并非所有的 `docker image rm` 都会产生删除镜像的行为，有可能仅仅是取消了某个标签而已。
+
+当该镜像所有的标签都被取消了，该镜像很可能会失去了存在的意义，因此会触发删除行为。镜像是多层存储结构，因此在删除的时候也是从上层向基础层方向依次进行判断删除。镜像的多层结构让镜像复用变得非常容易，因此很有可能某个其它镜像正依赖于当前镜像的某一层。这种情况，依旧不会触发删除该层的行为。直到没有任何层依赖当前层时，才会真实的删除当前层。这就是为什么，有时候会奇怪，为什么明明没有别的标签指向这个镜像，但是它还是存在的原因，也是为什么有时候会发现所删除的层数和自己 `docker pull` 看到的层数不一样的原因。
+
+除了镜像依赖以外，还需要注意的是容器对镜像的依赖。如果有用这个镜像启动的容器存在（即使容器没有运行），那么同样不可以删除这个镜像。之前讲过，容器是以镜像为基础，再加一层容器存储层，组成这样的多层存储结构去运行的。因此该镜像如果被这个容器所依赖的，那么删除必然会导致故障。如果这些容器是不需要的，应该先将它们删除，然后再来删除镜像。
+
+#### 结合docker image ls使用
+
+如同之前使用grep配置docker image ls 一样，如果要批量删除镜像，可以通过docker image ls 来列出所有匹配的镜像，再执行删除操作。
+
+例如删除所有在centos:latest之后构建的镜像：
+
+```
+docker image rm $(docker image ls -q -f since=centos:latest)
+```

@@ -1,0 +1,30 @@
+{
+	"nodes":[
+		{"id":"3acf6448f5c7f9b8","type":"group","x":-160,"y":-200,"width":1480,"height":744,"label":"1.1.1 计算机硬件基本组成"},
+		{"id":"5caaa3246c6421c4","type":"text","text":"计算机系统硬件的基本组组成","x":-80,"y":165,"width":310,"height":60,"color":"4"},
+		{"id":"ac2ee2d68f33aa01","type":"text","text":"储存器","x":420,"y":35,"width":250,"height":60},
+		{"id":"55923d1cf871e1bd","type":"text","text":"控制器","x":420,"y":115,"width":250,"height":60},
+		{"id":"21daf7249893d36e","x":780,"y":245,"width":250,"height":60,"type":"text","text":"统称为外设"},
+		{"id":"d374f6d19eae2c7a","x":580,"y":-141,"width":250,"height":60,"type":"text","text":"外部储存设备（容量大、速度慢）"},
+		{"id":"fe89d9ff149e732c","x":295,"y":-141,"width":250,"height":60,"type":"text","text":"内部储存设备（容量小、速度快）"},
+		{"id":"d7bca7ed2e51aeb9","type":"text","text":"输入设备","x":420,"y":195,"width":250,"height":60},
+		{"id":"cfe127a6fd082236","type":"text","text":"输出设备","x":420,"y":275,"width":250,"height":60},
+		{"id":"850edad6ab48c386","type":"text","text":"运算器","x":420,"y":355,"width":250,"height":50},
+		{"id":"d033c37f8ad28f34","type":"text","text":"CPU的一部分","x":780,"y":65,"width":173,"height":47},
+		{"id":"7ec19d519fa2e5fe","type":"text","text":"硬件系统的核心","x":783,"y":5,"width":170,"height":60}
+	],
+	"edges":[
+		{"id":"27736df26a65decd","fromNode":"5caaa3246c6421c4","fromSide":"right","toNode":"ac2ee2d68f33aa01","toSide":"left"},
+		{"id":"acf0ef9e4e83fc51","fromNode":"5caaa3246c6421c4","fromSide":"right","toNode":"55923d1cf871e1bd","toSide":"left"},
+		{"id":"25a7953ec1421e99","fromNode":"5caaa3246c6421c4","fromSide":"right","toNode":"d7bca7ed2e51aeb9","toSide":"left"},
+		{"id":"81a554482980a435","fromNode":"5caaa3246c6421c4","fromSide":"right","toNode":"cfe127a6fd082236","toSide":"left"},
+		{"id":"9c659537e3cc7439","fromNode":"850edad6ab48c386","fromSide":"left","toNode":"5caaa3246c6421c4","toSide":"right","toEnd":"none"},
+		{"id":"ab26b2e8b0c324b9","fromNode":"ac2ee2d68f33aa01","fromSide":"right","toNode":"d033c37f8ad28f34","toSide":"left"},
+		{"id":"7f6153dbe9c1dcc8","fromNode":"55923d1cf871e1bd","fromSide":"right","toNode":"d033c37f8ad28f34","toSide":"left"},
+		{"id":"71c8b0fcab3340e5","fromNode":"d033c37f8ad28f34","fromSide":"right","toNode":"7ec19d519fa2e5fe","toSide":"right"},
+		{"id":"c9552be236d1efac","fromNode":"d7bca7ed2e51aeb9","fromSide":"right","toNode":"21daf7249893d36e","toSide":"left"},
+		{"id":"c5685a3bdd82fb5f","fromNode":"cfe127a6fd082236","fromSide":"right","toNode":"21daf7249893d36e","toSide":"left"},
+		{"id":"a339c9f517cdd308","fromNode":"ac2ee2d68f33aa01","fromSide":"top","toNode":"d374f6d19eae2c7a","toSide":"bottom"},
+		{"id":"b429d214cc019540","fromNode":"ac2ee2d68f33aa01","fromSide":"top","toNode":"fe89d9ff149e732c","toSide":"bottom"}
+	]
+}
