@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "b5e4ac3d34caa283",
+        "id": "fed827668c14fed1",
         "type": "tabs",
         "children": [
           {
-            "id": "4cd658c97a2856c2",
+            "id": "eb713fe8cf924171",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "碎片记录/2024/2024年3月.md",
+                "file": "项目记录/睿抗机械狗/机械臂文档.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 304.5
+    "width": 200
   },
   "right": {
     "id": "0fe109e856fc79e7",
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "碎片记录/2024/2024年3月.md",
+                "file": "项目记录/睿抗机械狗/机械臂文档.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "碎片记录/2024/2024年3月.md",
+                "file": "项目记录/睿抗机械狗/机械臂文档.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "碎片记录/2024/2024年3月.md"
+                "file": "项目记录/睿抗机械狗/机械臂文档.md"
               }
             }
           }
@@ -134,7 +134,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300.5
+    "width": 235.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -148,37 +148,51 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "4cd658c97a2856c2",
+  "active": "eb713fe8cf924171",
   "lastOpenFiles": [
-    "Docker/Docker入门.md",
-    "Docker/Docker镜像的高级操作.md",
-    "碎片记录/2024/2024年3月.md",
-    "项目记录/京东E卡商城开发.md",
     "未命名.canvas",
+    "项目记录/睿抗机械狗/机械臂文档.md",
+    "项目记录/数学建模/ARIMA模型.md",
+    "项目记录/睿抗机械狗比赛.md",
+    "项目记录/睿抗机械狗",
+    "Python/OCR/源码解读.md",
+    "Python/OCR/OCR识别 概述.md",
+    "Python/pandas.md",
+    "Pasted image 20240512193650.png",
+    "Python/OCR/numpy相关.md",
+    "Python/OCR",
+    "Pasted image 20240422013055.png",
+    "项目记录/数学建模/主题确定.md",
+    "Pasted image 20240421154009.png",
+    "Nginx/Nginx 安装(尚硅谷).pdf",
+    "019F6677.png",
+    "Pasted image 20240413042834.png",
+    "Python/文档补充/词法分析.md",
+    "Python/文档补充/数据模型.md",
+    "图床说明.md",
+    "Nginx/03.虚拟主机基础.md",
+    "Docker/Docker入门.md",
+    "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+    "其他/github协作.md",
+    "Arduino/Arduino基础/01.常用函数及扩展解析.md",
+    "Python/OCR",
+    "019F6677 1.png",
+    "Pasted image 20240406193207.png",
+    "项目记录/数学建模",
+    "Pasted image 20240331180535.png",
+    "Pasted image 20240331180514.png",
+    "碎片记录/2024/2024年3月.md",
+    "项目记录/E卡商城中控平台.md",
+    "PHP/thinkphp的MVCS架构.md",
+    "PHP",
+    "Docker/Docker镜像的高级操作.md",
+    "项目记录/京东E卡商城开发.md",
     "碎片记录/2024",
     "Matlab/matlab四种基本图表.md",
     "111.md",
     "未命名.md",
-    "未命名",
     "项目记录/Webnull外汇交易所二次开发/金融基础.md",
-    "大前端/Grid布局.md",
-    "大前端/MDN/Javascript异步编程.md",
-    "大前端/MDN/window.URL接口.md",
-    "大前端/MDN/Storage对象.md",
-    "2024-03-17.md",
-    "Python/文档补充/数据模型.md",
     "Pasted image 20240317160042.png",
-    "Pasted image 20240317155344.png",
-    "009D04D6.png",
-    "Pasted image 20240309190804.png",
-    "Python/文档补充/词法分析.md",
-    "Python/文档补充",
-    "碎片记录/2023/第三周.md",
-    "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
-    "Arduino/Arduino基础/01.常用函数及扩展解析.md",
-    "小程序/4.WXML-事件绑定.md",
-    "小程序/5.条件渲染和列表渲染.md",
-    "踩坑记录/记一次Laravel上传文件访问404的错误（核心：软连接）.md",
-    "大前端/MDN/image.png"
+    "Python/文档补充"
   ]
 }
