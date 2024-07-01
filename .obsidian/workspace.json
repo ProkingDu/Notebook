@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "fed827668c14fed1",
+        "id": "2ca66c1cb06ff138",
         "type": "tabs",
         "children": [
           {
-            "id": "eb713fe8cf924171",
+            "id": "0be3528e4cc652d0",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "项目记录/睿抗机械狗/机械臂文档.md",
+                "file": "AI/datawhale/夏令营/Task1 Baseline.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "项目记录/睿抗机械狗/机械臂文档.md",
+                "file": "AI/datawhale/夏令营/Task1 Baseline.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "项目记录/睿抗机械狗/机械臂文档.md",
+                "file": "AI/datawhale/夏令营/Task1 Baseline.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "项目记录/睿抗机械狗/机械臂文档.md"
+                "file": "AI/datawhale/夏令营/Task1 Baseline.md"
               }
             }
           }
@@ -134,7 +134,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 235.5
+    "width": 239.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -145,54 +145,59 @@
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
       "random-note:开始漫游笔记": false,
-      "markdown-importer:打开 Markdown 格式转换器": false
+      "markdown-importer:打开 Markdown 格式转换器": false,
+      "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "eb713fe8cf924171",
+  "active": "0be3528e4cc652d0",
   "lastOpenFiles": [
+    "Pasted image 20240701223817.png",
+    "Pasted image 20240701223700.png",
+    "Pasted image 20240701223157.png",
+    "Pasted image 20240701215542.png",
     "未命名.canvas",
+    "AI/datawhale/夏令营/Task1 Baseline.md",
+    "AI/datawhale/第九期/机器学习综述（Machine Learing Overview）.md",
+    "AI/datawhale/夏令营",
+    "Pasted image 20240701210023.png",
+    "项目记录/睿抗机械狗/技术报告-基于opencv与ROI分割的自动循迹物资运送机器人。.md",
     "项目记录/睿抗机械狗/机械臂文档.md",
+    "Pasted image 20240629173643.png",
+    "Pasted image 20240629172510.png",
+    "项目记录/睿抗机械狗/主控板获取各板卡图传记录.md",
+    "Pasted image 20240620214719.png",
+    "图床说明.md",
+    "AI/datawhale/第九期/code/logistical_regression.py~",
+    "AI/datawhale/第九期/code/logistical_regression.py",
+    "未命名.md",
+    "Pasted image 20240530172237.png",
+    "AI/吴恩达机器学习/机器学习入门.md",
+    "AI/datawhale/第九期/code/linear_regression.py~",
+    "AI/datawhale/第九期/code/linear_regression.py",
+    "AI/datawhale/第九期/code/linear_regression.pu",
+    "AI/datawhale/第九期/code",
+    "读书笔记/Python深度学习-基于pytorch/第三章 Pytorch神经网络工具箱.md",
+    "AI/datawhale/第九期",
+    "AI/datawhale",
+    "未命名 1.md",
+    "未命名",
+    "读书笔记/深度学习与计算机视觉实战/图像处理基本操作.md",
+    "Pasted image 20240512193650.png",
+    "读书笔记/未命名.canvas",
     "项目记录/数学建模/ARIMA模型.md",
     "项目记录/睿抗机械狗比赛.md",
-    "项目记录/睿抗机械狗",
     "Python/OCR/源码解读.md",
     "Python/OCR/OCR识别 概述.md",
     "Python/pandas.md",
-    "Pasted image 20240512193650.png",
     "Python/OCR/numpy相关.md",
-    "Python/OCR",
     "Pasted image 20240422013055.png",
     "项目记录/数学建模/主题确定.md",
-    "Pasted image 20240421154009.png",
-    "Nginx/Nginx 安装(尚硅谷).pdf",
-    "019F6677.png",
-    "Pasted image 20240413042834.png",
     "Python/文档补充/词法分析.md",
     "Python/文档补充/数据模型.md",
-    "图床说明.md",
     "Nginx/03.虚拟主机基础.md",
     "Docker/Docker入门.md",
     "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
     "其他/github协作.md",
-    "Arduino/Arduino基础/01.常用函数及扩展解析.md",
-    "Python/OCR",
-    "019F6677 1.png",
-    "Pasted image 20240406193207.png",
-    "项目记录/数学建模",
-    "Pasted image 20240331180535.png",
-    "Pasted image 20240331180514.png",
-    "碎片记录/2024/2024年3月.md",
-    "项目记录/E卡商城中控平台.md",
-    "PHP/thinkphp的MVCS架构.md",
-    "PHP",
-    "Docker/Docker镜像的高级操作.md",
-    "项目记录/京东E卡商城开发.md",
-    "碎片记录/2024",
-    "Matlab/matlab四种基本图表.md",
-    "111.md",
-    "未命名.md",
-    "项目记录/Webnull外汇交易所二次开发/金融基础.md",
-    "Pasted image 20240317160042.png",
-    "Python/文档补充"
+    "Arduino/Arduino基础/01.常用函数及扩展解析.md"
   ]
 }
