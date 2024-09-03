@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "2ca66c1cb06ff138",
+        "id": "423e6dde006048e8",
         "type": "tabs",
         "children": [
           {
-            "id": "0be3528e4cc652d0",
+            "id": "9c09d91feece81dc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "AI/datawhale/夏令营/Task1 Baseline.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -69,7 +65,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200.50152587890625
   },
   "right": {
     "id": "0fe109e856fc79e7",
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AI/datawhale/夏令营/Task1 Baseline.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AI/datawhale/夏令营/Task1 Baseline.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,15 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "AI/datawhale/夏令营/Task1 Baseline.md"
-              }
+              "state": {}
+            }
+          },
+          {
+            "id": "dbf62a46b00405e1",
+            "type": "leaf",
+            "state": {
+              "type": "mermaid-toolbar-view",
+              "state": {}
             }
           }
         ],
@@ -134,7 +134,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 239.5
+    "width": 241.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -149,55 +149,54 @@
       "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "0be3528e4cc652d0",
+  "active": "b445c73014f40a2e",
   "lastOpenFiles": [
+    "项目记录/睿抗机械狗/技术报告-基于opencv与ROI分割的自动循迹物资运送机器人。.md",
+    "项目记录/睿抗机械狗/国赛技术报告.md",
+    "Pasted image 20240816172231.png",
+    "项目记录/睿抗机械狗/机械臂文档.md",
+    "AI/机器学习/局部异常因子-LOF.md",
+    "项目记录/睿抗机械狗/主控板获取各板卡图传记录.md",
+    "项目记录/睿抗机械狗比赛.md",
+    "AI/李沐深度学习/03.数据操作+数据预处理.md",
+    "AI/李沐深度学习/03.数据操作+数据预处理.pdf",
+    "C语言/C语言数组.md",
+    "Nginx/Nginx基础.md",
+    "Python/文档补充/数据模型.md",
+    "其他/大前端/MDN/Storage对象.md",
+    "读书笔记/洛克菲勒留给儿子的38封信.md",
+    "未命名.md",
+    "其他/大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
+    "AI/机器学习",
+    "AI/datawhale/夏令营/Prompt 设计.md",
+    "AI/datawhale/夏令营/扩展部分.md",
+    "AI/李沐深度学习/01.序言：关于深度学习.md",
+    "AI/datawhale/夏令营/Task.3 进阶Baseline2+模型微调.md",
+    "项目记录/信息安全竞赛/利用孤立森林实现异常流量检测.md",
+    "AI/datawhale/第九期/机器学习综述（Machine Learing Overview）.md",
+    "AI/Yolo系列/YoloV5 基础篇.md",
+    "AI/李沐深度学习/01.序言：关于深度学习.pdf",
+    "AI/李沐深度学习/02.下载课程源代码.md",
+    "AI/datawhale/夏令营/DataWhale夏令营第一期总结.md",
+    "项目记录/信息安全竞赛/利用孤立森林实现异常流量检测.pdf",
+    "Pasted image 20240803165204.png",
+    "项目记录/信息安全竞赛/模块设计.md",
+    "图床说明.md",
+    "项目记录/信息安全竞赛",
+    "AI/周报/7.21.pdf",
+    "AI/datawhale/夏令营/DataWhale夏令营第一期总结.pdf",
+    "AI/Yolo系列",
+    "AI/周报",
+    "AI/李沐深度学习",
+    "Pasted image 20240718202725.png",
+    "Pasted image 20240718111742.png",
+    "Pasted image 20240707022157.png",
+    "Pasted image 20240707021525.png",
+    "AI/datawhale/夏令营/img/榜1.png",
     "Pasted image 20240701223817.png",
     "Pasted image 20240701223700.png",
     "Pasted image 20240701223157.png",
-    "Pasted image 20240701215542.png",
     "未命名.canvas",
-    "AI/datawhale/夏令营/Task1 Baseline.md",
-    "AI/datawhale/第九期/机器学习综述（Machine Learing Overview）.md",
-    "AI/datawhale/夏令营",
-    "Pasted image 20240701210023.png",
-    "项目记录/睿抗机械狗/技术报告-基于opencv与ROI分割的自动循迹物资运送机器人。.md",
-    "项目记录/睿抗机械狗/机械臂文档.md",
-    "Pasted image 20240629173643.png",
-    "Pasted image 20240629172510.png",
-    "项目记录/睿抗机械狗/主控板获取各板卡图传记录.md",
-    "Pasted image 20240620214719.png",
-    "图床说明.md",
-    "AI/datawhale/第九期/code/logistical_regression.py~",
-    "AI/datawhale/第九期/code/logistical_regression.py",
-    "未命名.md",
-    "Pasted image 20240530172237.png",
-    "AI/吴恩达机器学习/机器学习入门.md",
-    "AI/datawhale/第九期/code/linear_regression.py~",
-    "AI/datawhale/第九期/code/linear_regression.py",
-    "AI/datawhale/第九期/code/linear_regression.pu",
-    "AI/datawhale/第九期/code",
-    "读书笔记/Python深度学习-基于pytorch/第三章 Pytorch神经网络工具箱.md",
-    "AI/datawhale/第九期",
-    "AI/datawhale",
-    "未命名 1.md",
-    "未命名",
-    "读书笔记/深度学习与计算机视觉实战/图像处理基本操作.md",
-    "Pasted image 20240512193650.png",
-    "读书笔记/未命名.canvas",
-    "项目记录/数学建模/ARIMA模型.md",
-    "项目记录/睿抗机械狗比赛.md",
-    "Python/OCR/源码解读.md",
-    "Python/OCR/OCR识别 概述.md",
-    "Python/pandas.md",
-    "Python/OCR/numpy相关.md",
-    "Pasted image 20240422013055.png",
-    "项目记录/数学建模/主题确定.md",
-    "Python/文档补充/词法分析.md",
-    "Python/文档补充/数据模型.md",
-    "Nginx/03.虚拟主机基础.md",
-    "Docker/Docker入门.md",
-    "大前端/JavaScript/脚本运行机制与事件循环〈Event Loop〉.md",
-    "其他/github协作.md",
-    "Arduino/Arduino基础/01.常用函数及扩展解析.md"
+    "读书笔记/未命名.canvas"
   ]
 }
