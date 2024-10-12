@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "423e6dde006048e8",
+        "id": "491ba38c655a93a0",
         "type": "tabs",
         "children": [
           {
-            "id": "9c09d91feece81dc",
+            "id": "03da5159018ba789",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "AI/李沐深度学习/05.线性回归.md",
+                "file": "AI/李沐深度学习/06.softmax回归.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "AI/李沐深度学习/05.线性回归.md",
+                "file": "AI/李沐深度学习/06.softmax回归.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "AI/李沐深度学习/05.线性回归.md",
+                "file": "AI/李沐深度学习/06.softmax回归.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "AI/李沐深度学习/05.线性回归.md"
+                "file": "AI/李沐深度学习/06.softmax回归.md"
               }
             }
           },
@@ -142,7 +142,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 248.5
+    "width": 248.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -157,11 +158,23 @@
       "mermaid-tools:Open Mermaid Toolbar": false
     }
   },
-  "active": "9c09d91feece81dc",
+  "active": "03da5159018ba789",
   "lastOpenFiles": [
+    "AI/李沐深度学习/01.序言：关于深度学习.md",
+    "AI/李沐深度学习/06.softmax回归.md",
+    "Pasted image 20241010133014.png",
+    "Pasted image 20241010132825.png",
+    "Pasted image 20241010132751.png",
+    "Pasted image 20241010132710.png",
+    "Pasted image 20241010132536.png",
+    "Pasted image 20241010132327.png",
+    "Pasted image 20241010132252.png",
+    "Pasted image 20241010132213.png",
+    "Pasted image 20241010131935.png",
+    "Pasted image 20241010131745.png",
+    "AI/李沐深度学习/05.线性回归.md",
     "AI/李沐深度学习/04.线性代数.md",
     "AI/李沐深度学习/03.数据操作+数据预处理.md",
-    "AI/李沐深度学习/05.线性回归.md",
     "AI/李沐深度学习/06.线性回归实现.md",
     "项目记录/2024智能车/2. 电机反装与调试PWM占空比范围.md",
     "项目记录/2024智能车/5. 视觉部分-赛道线提取（二）.md",
@@ -169,13 +182,10 @@
     "项目记录/2024智能车/4. 调试摄像头.md",
     "项目记录/2024智能车/3.视觉部分-赛道边线提取（1）.md",
     "项目记录/2024智能车/1.装配环境、更换舵机、控制舵机.md",
-    "AI/李沐深度学习/01.序言：关于深度学习.md",
     "项目记录/2024智能车/3.视觉部分-赛道边线提取（1）.pdf",
     "项目记录/2024智能车/2. 电机反装与调试PWM占空比范围.pdf",
     "项目记录/2024智能车/1.装配环境、更换舵机、控制舵机.pdf",
     "芒种-科普作品-科学绘本.rar",
-    "Pasted image 20240921213833.png",
-    "Pasted image 20240921213452.png",
     "AI/Yolo系列/3.yolo目标检测基本思想.md",
     "项目记录/2024智能车",
     "AI/Yolo系列/3.yolo目标检测基本思想.pdf",
@@ -184,10 +194,8 @@
     "AI/Yolo系列/4. yolov5网络架构与组件.md",
     "AI/Yolo系列/基础篇.pdf",
     "AI/Yolo系列/1. YoloV5 基础篇.md",
-    "Pasted image 20240910201753.png",
     "项目记录/睿抗机械狗/技术报告-基于opencv与ROI分割的自动循迹物资运送机器人。.md",
     "项目记录/睿抗机械狗/国赛技术报告.md",
-    "Pasted image 20240816172231.png",
     "项目记录/睿抗机械狗/机械臂文档.md",
     "AI/机器学习/局部异常因子-LOF.md",
     "项目记录/睿抗机械狗/主控板获取各板卡图传记录.md",
@@ -196,15 +204,7 @@
     "C语言/C语言数组.md",
     "Nginx/Nginx基础.md",
     "Python/文档补充/数据模型.md",
-    "其他/大前端/MDN/Storage对象.md",
-    "读书笔记/洛克菲勒留给儿子的38封信.md",
     "AI/机器学习",
-    "Pasted image 20240803165204.png",
-    "Pasted image 20240718202725.png",
-    "Pasted image 20240718111742.png",
-    "Pasted image 20240707022157.png",
-    "Pasted image 20240707021525.png",
-    "AI/datawhale/夏令营/img/榜1.png",
     "未命名.canvas",
     "读书笔记/未命名.canvas"
   ]
